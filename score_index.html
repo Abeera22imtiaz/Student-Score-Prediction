@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GPA Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://images.unsplash.com/photo-1606312615101-02b1f24c29fa?auto=format&fit=crop&w=1920&q=100') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.75); /* Transparent background */
+            backdrop-filter: blur(8px); /* Blur glass effect */
+            -webkit-backdrop-filter: blur(8px); /* Safari support */
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #34495e;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #27ae60;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #1e8449;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 GPA Prediction</h1>
+        <form action="/predict" method="post">
+            <label for="Absences">Number of Absences</label>
+            <input type="number" id="Absences" name="Absences" placeholder="Enter absences" step="1" required>
+
+            <label for="StudyTimeWeekly">Study Time Weekly (hours)</label>
+            <input type="number" id="StudyTimeWeekly" name="StudyTimeWeekly" placeholder="Enter hours" step="0.1" required>
+
+            <label for="ParentalSupport">Parental Support (0 = None, 4 = High)</label>
+            <input type="number" id="ParentalSupport" name="ParentalSupport" placeholder="0 to 4" min="0" max="4" step="1" required>
+
+            <label for="GradeClass">Grade/Class (0–4)</label>
+            <input type="number" id="GradeClass" name="GradeClass" placeholder="Enter grade (0-4)" min="0" max="4" step="1" required>
+
+            <button type="submit">Predict GPA</button>
+        </form>
+
+        {% if lin_result %}
+            <div class="result">
+                <p>Linear Regression GPA: <b>{{ lin_result }}</b></p>
+                <p>Polynomial Regression GPA: <b>{{ poly_result }}</b></p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
